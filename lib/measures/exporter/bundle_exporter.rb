@@ -134,7 +134,7 @@ module Measures
             end
           end
         end
-        HealthDataStandards::SVS::ValueSet.where({oid: {'$in'=>value_sets}}).to_a.each do |vs|
+        HealthDataStandards::SVS::ValueSet.where({oid: {'$in'=>value_sets}, user_id: measures.first.user_id}).to_a.each do |vs|
            write_to_file File.join(valuesets_path,"json", "#{vs.oid}.json"), JSON.pretty_generate(vs.as_json(:except => [ '_id' ]), max_nesting: 250)
         end
       end
